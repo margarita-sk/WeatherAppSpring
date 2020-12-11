@@ -9,6 +9,8 @@ to install keys for yandex_geocoder and yandex_weather api run a command line an
 to compile application run a command line from the source folder and enter command: 
 - mvn compile
 
-- Maven version 3.6.3 was used for building 
-- Apache Tomcat v9.0.20.0 was used to deploy the application
-- The application has been tested on Windows 10 OS, java version: 15.0.1
+Maven version 3.6.3 was used for building 
+
+Apache Tomcat v9.0.20.0 was used to deploy the application
+
+The application has been tested on Windows 10 OS, java version: 15.0.1
