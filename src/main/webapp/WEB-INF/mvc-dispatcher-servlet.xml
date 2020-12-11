@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+    	http://www.springframework.org/schema/beans/spring-beans.xsd
+    	http://www.springframework.org/schema/context
+    	http://www.springframework.org/schema/context/spring-context.xsd
+    	http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+	<context:component-scan
+		base-package="outfit.controller.OutfitController" />
+
+	<!-- to find styles -->
+	<mvc:resources mapping="/resources/**"
+		location="/resources/" />
+
+	<context:property-placeholder
+		location="classpath:properties.properties" />
+
+	<!-- to find my jsp pages -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- Is it any possibility to import beans from other xml files? -->
+
+	<!-- city -->
+
+	<bean id="cityClient" class="city.client.YandexCityClient"
+		scope="prototype">
+		<constructor-arg name="url" value="${geocoder.url}" />
+		<constructor-arg name="format"
+			value="${geocoder.format}" />
+		<constructor-arg name="language"
+			value="${geocoder.language}" />
+	</bean>
+
+	<bean id="cityService" class="city.service.CityServiceImpl"
+		scope="prototype">
+		<constructor-arg name="client" ref="cityClient" />
+	</bean>
+
+	<!-- weather -->
+
+	<bean id="weatherClient"
+		class="weather.client.YandexWeatherClient" scope="prototype">
+		<constructor-arg name="url" value="${weather.url}" />
+		<constructor-arg name="language"
+			value="${weather.language}" />
+	</bean>
+
+	<bean id="weatherRepository"
+		class="weather.dao.WeatherRepositoryImpl" scope="prototype"></bean>
+
+	<bean id="weatherService"
+		class="weather.service.WeatherServiceImpl" scope="prototype">
+		<constructor-arg name="client" ref="weatherClient" />
+		<constructor-arg name="repository"
+			ref="weatherRepository" />
+	</bean>
+
+	<!-- outfit -->
+
+	<bean id="outfitRepository"
+		class="outfit.dao.OutfitRepositoryImpl" scope="prototype" />
+
+	<bean id="outfitService" class="outfit.service.OutfitServiceImpl"
+		scope="prototype">
+		<constructor-arg name="repository"
+			ref="outfitRepository" />
+	</bean>
+
+	<bean id="outfitValidator" class="util.OutfitValidator">
+	</bean>
+
+	<bean id="outfitController"
+		class="outfit.controller.OutfitController">
+		<constructor-arg name="weatherService"
+			ref="weatherService" />
+		<constructor-arg name="cityService" ref="cityService" />
+		<constructor-arg name="outfitService"
+			ref="outfitService" />
+		<constructor-arg name="validator"
+			ref="outfitValidator" />
+	</bean>
+
+
+</beans>

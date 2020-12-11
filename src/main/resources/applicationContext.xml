@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:property-placeholder
+		location="classpath:properties.properties" />
+
+	<!-- city -->
+
+	<bean id="cityClient" class="city.client.YandexCityClient"
+		scope="prototype">
+		<constructor-arg name="url" value="${geocoder.url}" />
+		<constructor-arg name="format"
+			value="${geocoder.format}" />
+		<constructor-arg name="language"
+			value="${geocoder.language}" />
+	</bean>
+
+	<bean id="cityService" class="city.service.CityServiceImpl"
+		scope="prototype">
+		<constructor-arg name="client" ref="cityClient" />
+	</bean>
+
+	<!-- weather -->
+
+	<bean id="weatherClient"
+		class="weather.client.YandexWeatherClient" scope="prototype">
+		<constructor-arg name="url" value="${weather.url}" />
+		<constructor-arg name="language"
+			value="${weather.language}" />
+	</bean>
+
+	<bean id="weatherRepository"
+		class="weather.dao.WeatherRepositoryImpl" scope="prototype"></bean>
+
+	<bean id="weatherService"
+		class="weather.service.WeatherServiceImpl" scope="prototype">
+		<constructor-arg name="client" ref="weatherClient" />
+		<constructor-arg name="repository"
+			ref="weatherRepository" />
+	</bean>
+
+	<!-- outfit -->
+
+	<bean id="outfitRepository"
+		class="outfit.dao.OutfitRepositoryImpl" scope="prototype" />
+
+	<bean id="outiftService" class="outfit.service.OutfitServiceImpl"
+		scope="prototype">
+		<constructor-arg name="repository"
+			ref="outfitRepository" />
+	</bean>
+
+</beans>
