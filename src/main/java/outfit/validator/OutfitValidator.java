@@ -1,4 +1,4 @@
-package util;
+package outfit.validator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import outfit.entity.Outfit;
+import outfit.model.Outfit;
 
 public class OutfitValidator implements Validator {
 

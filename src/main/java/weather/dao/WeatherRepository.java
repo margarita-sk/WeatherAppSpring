@@ -1,8 +1,10 @@
 package weather.dao;
 
-import weather.entity.Weather;
+import java.sql.SQLException;
+
+import weather.model.Weather;
 
 public interface WeatherRepository {
-	Weather decryptCondition(Weather weather) throws Exception;
+	Weather decryptCondition(Weather weather) throws SQLException ;
 
 }

@@ -1,9 +1,11 @@
 package weather.client;
 
-import weather.entity.Weather;
+import java.io.IOException;
+
+import weather.model.Weather;
 
 public interface WeatherClient {
 
-	Weather recieveWeather(String latitude, String longitude) throws Exception;
+	Weather recieveWeather(String latitude, String longitude) throws IOException;
 
 }

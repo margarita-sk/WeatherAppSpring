@@ -14,32 +14,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import org.apache.log4j.Logger;
-
-import city.entity.City;
-import city.service.CityService;
-import outfit.dto.OutfitWithWeatherFacade;
-import outfit.entity.Outfit;
+import lombok.extern.log4j.Log4j;
+import outfit.dto.OutfitWithWeatherDto;
+import outfit.facade.OutfitFacade;
+import outfit.model.Outfit;
 import outfit.service.OutfitService;
-import util.OutfitValidator;
-import weather.entity.Weather;
-import weather.service.WeatherService;
+import outfit.validator.OutfitValidator;
 
+@Log4j
 @Controller
 @RequestMapping()
 public class OutfitController {
-	private static final Logger log = Logger.getLogger(OutfitController.class);
 
-	private WeatherService weatherService;
-	private CityService cityService;
 	private OutfitService outfitService;
+	private OutfitFacade outfitFacade;
 	private OutfitValidator validator;
 
-	public OutfitController(WeatherService weatherService, CityService cityService, OutfitService outfitService,
-			OutfitValidator validator) {
-		this.weatherService = weatherService;
+	public OutfitController(OutfitService outfitService, OutfitFacade outfitFacade, OutfitValidator validator) {
 		this.outfitService = outfitService;
-		this.cityService = cityService;
+		this.outfitFacade = outfitFacade;
 		this.validator = validator;
 	}
 
@@ -52,18 +45,8 @@ public class OutfitController {
 	public String showOutfitAdvice(@RequestParam(value = "city", required = false) String citySearchedName,
 			Model model) {
 		try {
-			City city = cityService.recieveCity(citySearchedName);
-
-			Weather weather = weatherService.recieveWeather(city.getLatitude(), city.getLongitude());
-			Outfit outfit = outfitService.recieveOutfitByWeather(weather);
-			OutfitWithWeatherFacade facade = outfitService.buildFacade(city, weather, outfit);
-
-			model.addAttribute("city", facade.getCityName());
-			model.addAttribute("img", facade.getIconUrl());
-			model.addAttribute("temperature", facade.getTemperature());
-			model.addAttribute("condition", facade.getCondition());
-			model.addAttribute("outfit", facade.getOutfitName());
-			model.addAttribute("accessories", facade.getAccessories());
+			var outfitDto = outfitFacade.buildFacade(citySearchedName);
+			fillOutfitAdviceAttributes(model, outfitDto);
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
 			log.error(e);
@@ -147,6 +130,15 @@ public class OutfitController {
 	@GetMapping("/outfit/add")
 	public String showAddOutfitForm() {
 		return "outfit/add";
+	}
+
+	private void fillOutfitAdviceAttributes(Model model, OutfitWithWeatherDto outfitDto) {
+		model.addAttribute("city", outfitDto.getCityName());
+		model.addAttribute("img", outfitDto.getIconUrl());
+		model.addAttribute("temperature", outfitDto.getTemperature());
+		model.addAttribute("condition", outfitDto.getCondition());
+		model.addAttribute("outfit", outfitDto.getOutfitName());
+		model.addAttribute("accessories", outfitDto.getAccessories());
 	}
 
 }

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import exception.OutfitException;
 import outfit.dao.OutfitRepositoryImpl;
-import outfit.entity.Outfit;
+import outfit.model.Outfit;
 import outfit.service.OutfitServiceImpl;
 
 class OutfitRepositoryImplTest {

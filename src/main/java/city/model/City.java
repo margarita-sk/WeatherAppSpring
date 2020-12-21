@@ -1,12 +1,11 @@
-package city.entity;
+package city.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Data
+@AllArgsConstructor
 public class City {
-	private String searchedCityName;
 	private String actualCityName;
 	private String latitude;
 	private String longitude;

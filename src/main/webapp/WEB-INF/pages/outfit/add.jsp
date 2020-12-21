@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <title>Weather forecast and clothing tips</title>
 <link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/styles/style1.css"/>" />
+	href="<c:url value="/resources/styles/style_green.css"/>" />
 </head>
 <body>
 	<div id="header">

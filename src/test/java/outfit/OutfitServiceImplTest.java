@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import exception.OutfitException;
 import outfit.dao.OutfitRepositoryImpl;
-import outfit.entity.Outfit;
+import outfit.model.Outfit;
 import outfit.service.OutfitServiceImpl;
 import weather.client.FileWeatherClient;
-import weather.entity.Weather;
+import weather.model.Weather;
 
 class OutfitServiceImplTest {
 

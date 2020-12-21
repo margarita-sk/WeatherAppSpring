@@ -1,15 +1,16 @@
 package outfit.service;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import city.entity.City;
-import exception.OutfitException;
+import city.model.City;
 import outfit.dao.OutfitRepository;
-import outfit.dto.OutfitWithWeatherFacade;
-import outfit.entity.Outfit;
-import weather.entity.Weather;
+import outfit.exception.OutfitDatabaseChangesException;
+import outfit.exception.OutfitNotFoundException;
+import outfit.model.Outfit;
+import weather.model.Weather;
 
 public class OutfitServiceImpl implements OutfitService {
 
@@ -20,69 +21,55 @@ public class OutfitServiceImpl implements OutfitService {
 	}
 
 	@Override
-	public Outfit recieveOutfitByWeather(Weather weather) throws Exception {
+	public Outfit recieveOutfitByWeather(Weather weather) throws OutfitNotFoundException, SQLException {
 		Stream<Outfit> outfitsStream = repository.recieveAll().stream();
 		Optional<Outfit> matchedOutfit = outfitsStream
 				.filter(outfit -> (outfit.getMinTemperatureToWear() <= weather.getTemperature()
 						&& outfit.getMaxTemperatureToWear() >= weather.getTemperature()))
 				.findFirst();
 
-		Outfit outfit = matchedOutfit.orElseThrow(OutfitException::new);
+		Outfit outfit = matchedOutfit.orElseThrow(OutfitNotFoundException::new);
 		return addAccessoriesToOutfit(outfit, weather);
 	}
 
 	private Outfit addAccessoriesToOutfit(Outfit outfit, Weather weather) {
 		switch (weather.getCondition()) {
-		case "clear":
-			if ("d".equals(weather.getDaytime()))
+		case "cloudy", "light snow", "overcast", "partly cloudy" -> outfit.setAccessories("a good mood");
+		case "clear" -> {
+			if (weather.getDaytime().equals("d"))
 				outfit.setAccessories("sunglasses");
-			break;
-		case "thunderstorm with hail":
-		case "cloudy":
-		case "light snow":
-		case "overcast":
-		case "partly cloudy":
-			outfit.setAccessories("good mood");
-			break;
-		default:
-			outfit.setAccessories("umbrella");
-			break;
 		}
+		default -> outfit.setAccessories("an umbrella");
+		}
+		;
 		return outfit;
 	}
 
 	@Override
-	public Outfit recieveOufitById(int id) throws Exception {
+	public Outfit recieveOufitById(int id) throws SQLException, OutfitNotFoundException {
 		return repository.recieveOufitById(id);
 	}
 
 	@Override
-	public Collection<Outfit> recieveAll() throws Exception {
+	public Collection<Outfit> recieveAll() throws SQLException, OutfitNotFoundException {
 		return repository.recieveAll();
 	}
 
 	@Override
-	public void addOutfit(Outfit outfit) throws Exception {
+	public void addOutfit(Outfit outfit) throws SQLException, OutfitDatabaseChangesException {
 		repository.addOutfit(outfit);
 	}
 
 	@Override
-	public void deleteOutfit(int id) throws Exception {
+	public void deleteOutfit(int id) throws SQLException, OutfitDatabaseChangesException, OutfitNotFoundException {
 		repository.deleteOutfit(id);
 
 	}
 
 	@Override
-	public void editOutfit(Outfit outfit) throws Exception {
+	public void editOutfit(Outfit outfit) throws SQLException, OutfitDatabaseChangesException {
 		repository.editOutfit(outfit);
 
-	}
-
-	@Override
-	public OutfitWithWeatherFacade buildFacade(City city, Weather weather, Outfit outfit) throws Exception {
-		var facade = new OutfitWithWeatherFacade(city.getActualCityName(), weather.getTemperature(),
-				weather.getCondition(), weather.getIconUrl(), outfit.getOutfitName(), outfit.getAccessories());
-		return facade;
 	}
 
 }

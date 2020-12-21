@@ -20,9 +20,6 @@
 	<mvc:resources mapping="/resources/**"
 		location="/resources/" />
 
-	<context:property-placeholder
-		location="classpath:properties.properties" />
-
 	<!-- to find my jsp pages -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -30,55 +27,18 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<!-- Is it any possibility to import beans from other xml files? -->
-
-	<!-- city -->
-
-	<bean id="cityClient" class="city.client.YandexCityClient"
-		scope="prototype">
-		<constructor-arg name="url" value="${geocoder.url}" />
-		<constructor-arg name="format"
-			value="${geocoder.format}" />
-		<constructor-arg name="language"
-			value="${geocoder.language}" />
-	</bean>
-
-	<bean id="cityService" class="city.service.CityServiceImpl"
-		scope="prototype">
-		<constructor-arg name="client" ref="cityClient" />
-	</bean>
-
-	<!-- weather -->
-
-	<bean id="weatherClient"
-		class="weather.client.YandexWeatherClient" scope="prototype">
-		<constructor-arg name="url" value="${weather.url}" />
-		<constructor-arg name="language"
-			value="${weather.language}" />
-	</bean>
-
-	<bean id="weatherRepository"
-		class="weather.dao.WeatherRepositoryImpl" scope="prototype"></bean>
+	<!-- import of to beans to create outfitController bean -->
+	<import resource="applicationContext.xml" />
 
 	<bean id="weatherService"
-		class="weather.service.WeatherServiceImpl" scope="prototype">
-		<constructor-arg name="client" ref="weatherClient" />
-		<constructor-arg name="repository"
-			ref="weatherRepository" />
-	</bean>
+		class="weather.service.WeatherServiceImpl" />
+	<bean id="outfitService" class="outfit.service.OutfitServiceImpl" />
+
 
 	<!-- outfit -->
 
-	<bean id="outfitRepository"
-		class="outfit.dao.OutfitRepositoryImpl" scope="prototype" />
-
-	<bean id="outfitService" class="outfit.service.OutfitServiceImpl"
-		scope="prototype">
-		<constructor-arg name="repository"
-			ref="outfitRepository" />
-	</bean>
-
-	<bean id="outfitValidator" class="util.OutfitValidator">
+	<bean id="outfitValidator"
+		class="outfit.validator.OutfitValidator">
 	</bean>
 
 	<bean id="outfitController"

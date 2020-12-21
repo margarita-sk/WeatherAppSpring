@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import city.client.YandexCityClient;
-import city.entity.City;
+import city.model.City;
 import exception.CityException;
 
 class YandexCityClientTest {

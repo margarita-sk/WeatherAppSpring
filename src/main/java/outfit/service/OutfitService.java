@@ -1,26 +1,26 @@
 package outfit.service;
 
+import java.sql.SQLException;
 import java.util.Collection;
 
-import city.entity.City;
-import outfit.dto.OutfitWithWeatherFacade;
-import outfit.entity.Outfit;
-import weather.entity.Weather;
+import city.model.City;
+import outfit.exception.OutfitDatabaseChangesException;
+import outfit.exception.OutfitNotFoundException;
+import outfit.model.Outfit;
+import weather.model.Weather;
 
 public interface OutfitService {
 
-	Outfit recieveOutfitByWeather(Weather weather) throws Exception;
+	Outfit recieveOutfitByWeather(Weather weather) throws OutfitNotFoundException, SQLException;
 
-	Outfit recieveOufitById(int id) throws Exception;
+	Outfit recieveOufitById(int id) throws SQLException, OutfitNotFoundException;
 
-	Collection<Outfit> recieveAll() throws Exception;
+	Collection<Outfit> recieveAll() throws SQLException, OutfitNotFoundException;
 
-	void addOutfit(Outfit outfit) throws Exception;
+	void addOutfit(Outfit outfit) throws SQLException, OutfitDatabaseChangesException;
 
-	void deleteOutfit(int id) throws Exception;
+	void deleteOutfit(int id) throws SQLException, OutfitDatabaseChangesException, OutfitNotFoundException;
 
-	void editOutfit(Outfit outfit) throws Exception;
-
-	OutfitWithWeatherFacade buildFacade(City city, Weather weather, Outfit outfit) throws Exception;
+	void editOutfit(Outfit outfit) throws SQLException, OutfitDatabaseChangesException;
 
 }

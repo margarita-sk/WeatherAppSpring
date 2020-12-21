@@ -1,8 +1,11 @@
 package weather.service;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import weather.client.WeatherClient;
 import weather.dao.WeatherRepository;
-import weather.entity.Weather;
+import weather.model.Weather;
 
 public class WeatherServiceImpl implements WeatherService {
 
@@ -15,7 +18,7 @@ public class WeatherServiceImpl implements WeatherService {
 	}
 
 	@Override
-	public Weather recieveWeather(String latitude, String longitude) throws Exception {
+	public Weather recieveWeather(String latitude, String longitude) throws IOException, SQLException {
 		var weather = client.recieveWeather(latitude, longitude);
 		return repository.decryptCondition(weather);
 	}

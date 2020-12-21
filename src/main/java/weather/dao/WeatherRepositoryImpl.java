@@ -5,10 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import poolConnection.DatabaseConnectionPool;
-import util.PropertiesHolder;
-import util.PropertiesHolder.Key;
-import weather.entity.Weather;
+import core.db.DatabaseConnectionPool;
+import properties.PropertiesHolder;
+import properties.PropertiesHolder.Key;
+import weather.model.Weather;
 
 public class WeatherRepositoryImpl implements WeatherRepository {
 	public static final String lang = PropertiesHolder.recieveConfigDB(Key.DB_LANG);

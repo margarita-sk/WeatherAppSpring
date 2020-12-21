@@ -1,4 +1,4 @@
-package outfit.entity;
+package outfit.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

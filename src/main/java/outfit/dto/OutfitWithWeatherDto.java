@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class OutfitWithWeatherFacade {
+public class OutfitWithWeatherDto {
 
 	private String cityName;
 

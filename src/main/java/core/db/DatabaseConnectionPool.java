@@ -1,4 +1,4 @@
-package poolConnection;
+package core.db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 
-import util.PropertiesHolder;
+import properties.PropertiesHolder;
 
 /**
  * The {@code DatabaseConnection} class provides connections, using DBCP as a
