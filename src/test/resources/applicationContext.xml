@@ -11,11 +11,20 @@
 	<context:property-placeholder
 		location="classpath:properties.properties" />
 
+
+	<!-- allows access to the system properties -->
+	<bean id="propertyPlaceholderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName"
+			value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="searchSystemEnvironment" value="true" />
+	</bean>
+
 	<!-- city -->
 
-	<bean id="cityClient" class="city.client.YandexCityClient"
-		scope="prototype">
+	<bean id="cityClient" class="city.client.YandexCityClient">
 		<constructor-arg name="url" value="${geocoder.url}" />
+		<constructor-arg name="key" value="${CITY_KEY}" />
 		<constructor-arg name="format"
 			value="${geocoder.format}" />
 		<constructor-arg name="language"
@@ -30,14 +39,15 @@
 	<!-- weather -->
 
 	<bean id="weatherClient"
-		class="weather.client.YandexWeatherClient" scope="prototype">
+		class="weather.client.YandexWeatherClient">
 		<constructor-arg name="url" value="${weather.url}" />
+		<constructor-arg name="key" value="${WEATHER_KEY}" />
 		<constructor-arg name="language"
 			value="${weather.language}" />
 	</bean>
 
 	<bean id="weatherRepository"
-		class="weather.dao.WeatherRepositoryImpl" scope="prototype"></bean>
+		class="weather.dao.WeatherRepositoryImpl"></bean>
 
 	<bean id="weatherService"
 		class="weather.service.WeatherServiceImpl" scope="prototype">
@@ -49,12 +59,11 @@
 	<!-- outfit -->
 
 	<bean id="outfitRepository"
-		class="outfit.dao.OutfitRepositoryImpl" scope="prototype" />
+		class="outfit.dao.OutfitRepositoryImpl" />
 
 	<bean id="outiftService" class="outfit.service.OutfitServiceImpl"
 		scope="prototype">
 		<constructor-arg name="repository"
 			ref="outfitRepository" />
 	</bean>
-
 </beans>

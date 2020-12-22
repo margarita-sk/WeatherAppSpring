@@ -2,61 +2,60 @@ package outfit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Assertions;
+import java.sql.SQLException;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import exception.OutfitException;
-import outfit.dao.OutfitRepositoryImpl;
+import outfit.exception.OutfitDatabaseChangesException;
+import outfit.exception.OutfitNotFoundException;
 import outfit.model.Outfit;
-import outfit.service.OutfitServiceImpl;
-import weather.client.FileWeatherClient;
-import weather.model.Weather;
+import outfit.service.OutfitService;
 
 class OutfitServiceImplTest {
+	private static OutfitService service;
+	private static int outfitId = 22;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		var context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		service = context.getBean(OutfitService.class);
+		context.close();
 	}
 
 	@Test
-	void testOutfitServiceImpl() {
-
-	}
-
-	@Test
-	void testRecieveOutfitByWeather() {
-		Weather weather = new Weather();
-		weather.setTemperature(999999);
-
-		Assertions.assertThrows(OutfitException.class, () -> {
-			new OutfitServiceImpl(new OutfitRepositoryImpl()).recieveOutfitByWeather(weather);
+	void testRecieveOufitById() throws SQLException, OutfitNotFoundException {
+		var outfitPresent = service.recieveOufitById(outfitId);
+		assertNotNull(outfitPresent);
+		assertThrows(OutfitNotFoundException.class, () -> {
+			service.recieveOufitById(9999999);
 		});
-
 	}
 
 	@Test
-	void testRecieveOufitById() {
-
+	void testRecieveAll() throws SQLException, OutfitNotFoundException {
+		assertNotNull(service.recieveAll());
 	}
 
 	@Test
-	void testRecieveAll() {
-
+	void testAddOutfit() throws SQLException, OutfitDatabaseChangesException {
+		var outfit = new Outfit("test", 0, 0);
+		assertThrows(OutfitDatabaseChangesException.class, () -> {
+			service.addOutfit(outfit);
+		});
 	}
 
 	@Test
-	void testAddOutfit() {
-
+	void testDeleteOutfit() throws SQLException, OutfitDatabaseChangesException, OutfitNotFoundException {
+		var outfit = service.recieveAll().stream().findAny().orElseThrow(OutfitNotFoundException::new);
+		service.deleteOutfit(outfit.getId());
 	}
 
 	@Test
-	void testDeleteOutfit() {
-
-	}
-
-	@Test
-	void testEditOutfit() {
+	void testEditOutfit() throws OutfitNotFoundException, SQLException, OutfitDatabaseChangesException {
+		var outfit = service.recieveAll().stream().findAny().orElseThrow(OutfitNotFoundException::new);
+		assertDoesNotThrow(() -> service.editOutfit(outfit));
 	}
 
 }

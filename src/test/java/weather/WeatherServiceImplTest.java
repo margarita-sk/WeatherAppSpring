@@ -3,33 +3,35 @@ package weather;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import city.client.CityClient;
 import city.exception.CityIncorrectNameException;
 import city.model.City;
-import weather.client.WeatherClient;
+import city.service.CityService;
 import weather.model.Weather;
+import weather.service.WeatherService;
 
-class YandexWeatherClientTest {
-	private static WeatherClient client;
+class WeatherServiceImplTest {
+
+	private static WeatherService service;
 	private static City city;
 	private static String cityName = "Minsk";
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		var context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		client = context.getBean(WeatherClient.class);
-		city = context.getBean(CityClient.class).recieveCity(cityName);
+		service = context.getBean(WeatherService.class);
+		city = context.getBean(CityService.class).recieveCity(cityName);
 		context.close();
 	}
 
 	@Test
-	void testRecieveCity() throws CityIncorrectNameException, IOException {
-		Weather weather = client.recieveWeather(city.getLatitude(), city.getLongitude());
+	void testRecieveCity() throws CityIncorrectNameException, IOException, SQLException {
+		Weather weather = service.recieveWeather(city.getLatitude(), city.getLongitude());
 		assertNotNull(weather);
 		assertNotNull(weather.getCondition());
 	}
