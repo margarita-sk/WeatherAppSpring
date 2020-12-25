@@ -35,7 +35,7 @@ public class MyConnectionPool implements ConnectionPool {
 		this.user = source.getUsername();
 		this.password = System.getenv("DATABASE_PASS");
 		this.maxPoolSize = source.getMaxIdle();
-		if (currentPoolSize > maxPoolSize) {
+		if (currentPoolSize >= maxPoolSize) {
 			throw new IllegalArgumentException("Invalid pool size parameters");
 		}
 		this.pool = new LinkedBlockingQueue<Connection>(maxPoolSize);

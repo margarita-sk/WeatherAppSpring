@@ -3,9 +3,13 @@ package properties;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+@EnableWebSecurity
+@Configuration
 public class MvcDispathcherServlet extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override

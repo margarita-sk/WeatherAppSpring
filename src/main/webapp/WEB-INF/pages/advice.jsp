@@ -24,9 +24,14 @@
 			</form>
 			<hr>
 
+			<c:url value="/logout" var="logoutUrl" />
+			<form id="logout" action="${logoutUrl}" method="post">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+			</form>
 			<c:if test="${pageContext.request.userPrincipal.name != null}">
 				<p>Hello, ${pageContext.request.userPrincipal.name}</p>
-				<a href="${pageContext.request.contextPath}/authorization/logout">logout</a>
+				<a href="javascript:document.getElementById('logout').submit()">logout</a>
 			</c:if>
 
 			<c:if test="${pageContext.request.userPrincipal.name == null}">
