@@ -12,17 +12,14 @@
 </head>
 <body>
 	<div id="header">
-		<h1>Hello, ${role}</h1>
+		<h1>Hello, ${pageContext.request.userPrincipal.name}</h1>
 	</div>
 	<div id="wrapper">
 		<div id="menu">
-			<c:if test="${role != null}">
-				<form method="post"
-					action="${pageContext.request.contextPath}/AuthenticationServlet">
-					<input type="submit" value="log out" />
-				</form>
+			<c:if test="${pageContext.request.userPrincipal.name != null}">
+				<a href="${pageContext.request.contextPath}/authorization/logout">logout</a>
 			</c:if>
-
+			<hr>
 			<br>
 			<p>Insert the name of the city to get the outfit advice</p>
 			<form method="get"

@@ -11,20 +11,17 @@
 </head>
 <body>
 	<div id="header">
-		<h1>Dress for weather</h1>
+		<h1>The weather is wonderful in ${city} today!</h1>
 	</div>
 	<div id="wrapper">
 
 		<div id="menu">
-
-
 			<form method="get"
 				action="${pageContext.request.contextPath}/outfit/list">
 				<p>
 					Outfit list <input type="submit" value="enter">
 				</p>
 			</form>
-
 			<hr>
 
 			<c:if test="${pageContext.request.userPrincipal.name != null}">
@@ -37,6 +34,8 @@
 			</c:if>
 
 
+
+			<br>
 		</div>
 
 		<div id="main">
@@ -50,29 +49,29 @@
 						value="search" />
 				</form>
 
+				<br>
+			</div>
+
+			<div>
+				<hr>
 				<h3>
 					<c:if test="${error != null}">${error}<br>
 					</c:if>
 				</h3>
 
+				<c:if test="${error == null}">
+					<img
+						src="https://yastatic.net/weather/i/icons/blueye/color/svg/${img}.svg"
+						alt="погода" width="100">
 
+					<p>Air temperature is ${temperature}&#176 Celsius. It's
+						${condition} today.</p>
+					<br>
+					<p>Recommended clothing: ${outfit}.</p>
+					<p>You may need ${accessories}.</p>
+					<p>Have a nice walk!</p>
 
-
-				<br>
-			</div>
-
-			<div>
-				<br> <br>
-				<h2>Why is it important to dress appropriately for the weather?</h2>
-				<br>
-				<p>If you dress for the weather you will feel warm in winter and
-					not hot in summer. This will reduce the likelihood of getting sick
-					and you will enjoy your walk more. However, there are days when you
-					don't know how to dress. Changeable weather happens regardless of
-					the season. But, especially often it happens in autumn and spring.
-					People outside the window can dress completely differently. Some
-					wear T-shirts, while others wear jackets. If you want to receive
-					dress advice - just insert the name of your city.</p>
+				</c:if>
 			</div>
 
 		</div>

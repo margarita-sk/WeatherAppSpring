@@ -2,6 +2,7 @@ package outfit.controller;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,13 +24,13 @@ import outfit.validator.OutfitValidator;
 
 @Log4j
 @Controller
-@RequestMapping()
 public class OutfitController {
 
 	private OutfitService outfitService;
 	private OutfitFacade outfitFacade;
 	private OutfitValidator validator;
 
+	@Autowired
 	public OutfitController(OutfitService outfitService, OutfitFacade outfitFacade, OutfitValidator validator) {
 		this.outfitService = outfitService;
 		this.outfitFacade = outfitFacade;
@@ -41,7 +42,7 @@ public class OutfitController {
 		return "index";
 	}
 
-	@GetMapping("/outfit/advice")
+	@GetMapping("/advice")
 	public String showOutfitAdvice(@RequestParam(value = "city", required = false) String citySearchedName,
 			Model model) {
 		try {
@@ -51,7 +52,7 @@ public class OutfitController {
 			model.addAttribute("error", e.getMessage());
 			log.error(e);
 		}
-		return "outfit/advice";
+		return "advice";
 	}
 
 	@GetMapping("/outfit/list")

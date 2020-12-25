@@ -13,15 +13,19 @@
 </head>
 <body>
 	<div id="header">
-		<h1>Hello, ${role}</h1>
+		<h1>Hello, ${pageContext.request.userPrincipal.name}</h1>
 	</div>
 	<div id="wrapper">
 		<div id="menu">
+
+			<c:if test="${pageContext.request.userPrincipal.name != null}">
+				<a href="${pageContext.request.contextPath}/authorization/logout">logout</a>
+			</c:if>
+			<hr>
 			<br>
 			<p>Insert the name of the city to get the outfit advice</p>
 			<br>
-			<form method="get"
-				action="${pageContext.request.contextPath}/outfit/advice">
+			<form method="get" action="${pageContext.request.contextPath}/advice">
 				<input type="textbox" name="city" /><br> <input type="submit"
 					value="search" />
 			</form>

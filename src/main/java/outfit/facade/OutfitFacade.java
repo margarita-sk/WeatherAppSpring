@@ -10,6 +10,6 @@ import outfit.exception.OutfitNotFoundException;
 public interface OutfitFacade {
 
 	OutfitWithWeatherDto buildFacade(String searchedCityName)
-			throws CityIncorrectNameException, IOException, SQLException, OutfitNotFoundException;
+			throws CityIncorrectNameException, IOException, SQLException, OutfitNotFoundException, InterruptedException;
 
 }

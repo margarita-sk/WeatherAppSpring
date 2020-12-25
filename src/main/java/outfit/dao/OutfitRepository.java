@@ -9,14 +9,15 @@ import outfit.model.Outfit;
 
 public interface OutfitRepository {
 
-	Outfit recieveOufitById(int id) throws SQLException, OutfitNotFoundException;
+	Outfit recieveOufitById(int id) throws SQLException, OutfitNotFoundException, InterruptedException;
 
-	Collection<Outfit> recieveAll() throws SQLException, OutfitNotFoundException;
+	Collection<Outfit> recieveAll() throws SQLException, OutfitNotFoundException, InterruptedException;
 
-	void addOutfit(Outfit outfit) throws SQLException, OutfitDatabaseChangesException;
+	void addOutfit(Outfit outfit) throws SQLException, OutfitDatabaseChangesException, InterruptedException;
 
-	void deleteOutfit(int id) throws SQLException, OutfitDatabaseChangesException, OutfitNotFoundException;
+	void deleteOutfit(int id)
+			throws SQLException, OutfitDatabaseChangesException, OutfitNotFoundException, InterruptedException;
 
-	void editOutfit(Outfit outfit) throws SQLException, OutfitDatabaseChangesException;
+	void editOutfit(Outfit outfit) throws SQLException, OutfitDatabaseChangesException, InterruptedException;
 
 }
