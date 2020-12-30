@@ -35,6 +35,6 @@ $ mvn clean package
 
 deploy
 ```
-$ mvn tomcat9:deploy
+$ mvn org.codehaus.cargo:cargo-maven2-plugin:run
 ```
 
