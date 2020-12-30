@@ -7,13 +7,13 @@ import lombok.Getter;
 @Getter
 public class OutfitWithWeatherDto {
 
-	private String cityName;
+  private String cityName;
 
-	private int temperature;
-	private String condition;
-	private String iconUrl;
+  private int temperature;
+  private String condition;
+  private String iconUrl;
 
-	private String outfitName;
-	private String accessories;
+  private String outfitName;
+  private String accessories;
 
 }

@@ -1,15 +1,13 @@
 package outfit.facade;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
 import city.exception.CityIncorrectNameException;
 import outfit.dto.OutfitWithWeatherDto;
 import outfit.exception.OutfitNotFoundException;
+import weather.exception.WeatherNotFoundException;
 
 public interface OutfitFacade {
 
-	OutfitWithWeatherDto buildFacade(String searchedCityName)
-			throws CityIncorrectNameException, IOException, SQLException, OutfitNotFoundException, InterruptedException;
+  OutfitWithWeatherDto searchOutfitWithWeatherDto(String searchedCityName)
+      throws CityIncorrectNameException, OutfitNotFoundException, WeatherNotFoundException;
 
 }

@@ -1,34 +1,39 @@
 package outfit.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Outfit {
 
-	private String outfitName;
+  @NonNull
+  private Integer id;
+  @NonNull
+  private String outfitName;
+  @NonNull
+  private Integer minTemperatureToWear;
+  @NonNull
+  private Integer maxTemperatureToWear;
 
-	private int minTemperatureToWear;
-	private int maxTemperatureToWear;
-	private int id;
+  private Accessories accessories;
 
-	private String accessories;
+  @Getter
+  public enum Accessories {
+    GOOD_MOOD("a good mood"), SUNGLASSES("sunglasses"), UMBRELLA("an umbrella");
 
-	public Outfit(int id, String outfitName, int minTemperature, int maxTemperature) {
-		this.id = id;
-		this.outfitName = outfitName;
-		this.minTemperatureToWear = minTemperature;
-		this.maxTemperatureToWear = maxTemperature;
+    String name;
 
-	}
-
-	public Outfit(String outfitName, int minTemperatureToWear, int maxTemperatureToWear) {
-		this.outfitName = outfitName;
-		this.minTemperatureToWear = minTemperatureToWear;
-		this.maxTemperatureToWear = maxTemperatureToWear;
-	}
+    Accessories(String name) {
+      this.name = name;
+    }
+  }
 
 }

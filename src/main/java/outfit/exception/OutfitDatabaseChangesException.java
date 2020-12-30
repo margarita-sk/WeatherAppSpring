@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OutfitDatabaseChangesException extends Exception {
 
-	private String message;
+  private String message;
 
 }

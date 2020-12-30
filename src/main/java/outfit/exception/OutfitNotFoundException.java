@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Getter
 public class OutfitNotFoundException extends Exception {
 
-	private String message = "Outfit was not found";
+  private String message = "Outfit was not found";
 
 }

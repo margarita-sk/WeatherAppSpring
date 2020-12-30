@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+	<changeSet author="Margarita" id="changelog-1.0">
+		<createTable tableName="weather_conditions">
+			<column name="id" type="int" autoIncrement="true"
+				incrementBy="1">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="symbol" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="en_decryption" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="precipitation" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="cloudy" />
+			<column name="en_decryption" value="cloudy" />
+			<column name="precipitation" value="NO_PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="clear" />
+			<column name="en_decryption" value="clear" />
+			<column name="precipitation" value="CLEAR" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="thunderstorm-with-hail" />
+			<column name="en_decryption" value="thunderstorm with hail" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="thunderstorm-with-rain" />
+			<column name="en_decryption" value="thunderstorm with rain" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="thunderstorm" />
+			<column name="en_decryption" value="thunderstorm" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="hail" />
+			<column name="en_decryption" value="hail" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="snow-showers" />
+			<column name="en_decryption" value="snow showers" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="snow" />
+			<column name="en_decryption" value="snow" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="light-snow" />
+			<column name="en_decryption" value="light snow" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="wet-snow" />
+			<column name="en_decryption" value="wet snow" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="showers" />
+			<column name="en_decryption" value="showers" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="continuous-heavy-rain" />
+			<column name="en_decryption" value="continuous heavy rain" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="heavy-rain" />
+			<column name="en_decryption" value="heavy rain" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="moderate-rain" />
+			<column name="en_decryption" value="moderate rain" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="rain" />
+			<column name="en_decryption" value="rain" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="light-rain" />
+			<column name="en_decryption" value="light-rain" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="drizzle" />
+			<column name="en_decryption" value="drizzle" />
+			<column name="precipitation" value="PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="overcast" />
+			<column name="en_decryption" value="overcast" />
+			<column name="precipitation" value="NO_PRECIPITATION" />
+		</insert>
+		<insert tableName="weather_conditions">
+			<column name="symbol" value="partly-cloudy" />
+			<column name="en_decryption" value="partly cloudy" />
+			<column name="precipitation" value="NO_PRECIPITATION" />
+		</insert>
+
+	</changeSet>
+</databaseChangeLog>

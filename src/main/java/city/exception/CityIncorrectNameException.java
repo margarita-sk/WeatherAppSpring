@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CityIncorrectNameException extends Exception {
 
-	private String message = "Incorrect city name";
+  private String message = "Incorrect city name";
 
 }

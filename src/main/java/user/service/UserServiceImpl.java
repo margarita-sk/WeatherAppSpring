@@ -1,25 +1,24 @@
 package user.service;
 
-import java.sql.SQLException;
 import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Component;
 import user.dao.UserRepository;
 
+@Component
 public class UserServiceImpl implements UserService {
 
-	private UserRepository repository;
+  private UserRepository repository;
 
-	public UserServiceImpl(UserRepository repository) {
-		this.repository = repository;
-	}
+  @Autowired
+  public UserServiceImpl(UserRepository repository) {
+    this.repository = repository;
+  }
 
-	@Override
-	public Collection<User> receiveAll() throws SQLException, InterruptedException {
-		return repository.receiveAll();
-	}
+  @Override
+  public Collection<User> receiveAll() {
+    return repository.receiveAll();
+  }
 
 }

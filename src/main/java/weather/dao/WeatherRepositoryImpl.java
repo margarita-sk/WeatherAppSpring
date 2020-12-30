@@ -1,37 +1,48 @@
 package weather.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import core.db.pool.ConnectionPool;
+import lombok.extern.log4j.Log4j;
+import weather.model.Weather.Precipitation;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Repository;
-
-import core.db.ConnectionPool;
-import weather.model.Weather;
-
-@Repository
+@Log4j
 public class WeatherRepositoryImpl implements WeatherRepository {
-	private ConnectionPool connectionPool;
-	private static final String DECRYPT_CONDITION = "SELECT "
-			+ "en_decryption FROM weather_conditions WHERE symbol = ?";
+  private ConnectionPool connectionPool;
+  private String GET_CONDITION = "SELECT en_decryption FROM weather_conditions WHERE symbol = ?";
+  private static final String GET_PRECIPITATION =
+      "SELECT precipitation FROM weather_conditions WHERE symbol = ?";
 
-	@Autowired
-	public WeatherRepositoryImpl(@Qualifier("myConnectionPool") ConnectionPool connectionPool) {
-		this.connectionPool = connectionPool;
-	}
+  private static final int GET_CONDITION_INDEX = 1;
+  private static final int GET_PRECIPITATION_INDEX = 1;
 
-	@Override
-	public Weather decryptCondition(Weather weather) throws SQLException, InterruptedException {
-		try (Connection connection = connectionPool.receiveConnection();
-				PreparedStatement prStatement = connection.prepareStatement(DECRYPT_CONDITION)) {
-			prStatement.setString(1, weather.getCondition());
-			ResultSet result = prStatement.executeQuery();
-			weather.setCondition(result.getString(1));
-		}
-		return weather;
-	}
+  public WeatherRepositoryImpl(ConnectionPool connectionPool) {
+    this.connectionPool = connectionPool;
+  }
+
+  @Override
+  public String receiveCondition(String decryptedCondition) {
+    try (var connection = connectionPool.receiveConnection();
+        var prStatement = connection.getConnection().prepareStatement(GET_CONDITION)) {
+      prStatement.setString(1, decryptedCondition);
+      var result = prStatement.executeQuery();
+      return result.getString(GET_CONDITION_INDEX);
+    } catch (SQLException e) {
+      log.error(e);
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public Precipitation receivePrecipitation(String decryptedCondition) {
+    try (var connection = connectionPool.receiveConnection();
+        var prStatement = connection.getConnection().prepareStatement(GET_PRECIPITATION)) {
+      prStatement.setString(1, decryptedCondition);
+      var result = prStatement.executeQuery();
+      return Precipitation.valueOf(result.getString(GET_PRECIPITATION_INDEX));
+    } catch (SQLException e) {
+      log.error(e);
+      throw new RuntimeException(e);
+    }
+  }
 
 }
