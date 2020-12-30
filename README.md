@@ -28,7 +28,7 @@ $ setx CITY_KEY %KEY%
 $ setx WEATHER_KEY %KEY%
 ```
 
-compile, test, package
+compile and package
 ```
 $ mvn clean package
 ```
