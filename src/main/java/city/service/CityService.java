@@ -1,10 +1,15 @@
 package city.service;
 
-import city.exception.CityIncorrectNameException;
-import city.model.City;
+import city.entity.City;
 
+/**
+ * The {@code CityService} interface provides the object of the class
+ * {@code City} by its name
+ * 
+ * @author Margarita Skokova
+ */
 public interface CityService {
 
-  City recieveCity(String searchedCityName) throws CityIncorrectNameException;
+	City parseCityByName(String cityName);
 
 }

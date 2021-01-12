@@ -1,0 +1,38 @@
+{ "Cities": [
+	{
+	 "City": "Минск",
+	 "latitude" : "53.90",
+	 "longitude": "27.56"
+	},
+	{
+	 "City": "Нефтегорск",
+	 "latitude" : "52.79",
+	 "longitude": "51.16"
+	},
+	{
+	 "City": "Антананариву",
+	 "latitude" : "-18.90",
+	 "longitude": "47.52"
+	},
+	{
+	 "City": "Хиросима",
+	 "latitude" : "34.39",
+	 "longitude": "132.45"
+	},
+	{
+	 "City": "Мехико",
+	 "latitude" : "19.43",
+	 "longitude": "-99.13"
+	},
+{
+	 "City": "Буэнос-Айрес",
+	 "latitude" : "-34.61",
+	 "longitude": "-58.43"
+	},
+{
+	 "City": "Кингстон",
+	 "latitude" : "17.99",
+	 "longitude": "-76.80"
+	}
+  ]
+}

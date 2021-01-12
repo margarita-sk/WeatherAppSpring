@@ -1,10 +1,16 @@
 package weather.service;
 
-import weather.exception.WeatherNotFoundException;
-import weather.model.Weather;
+import city.entity.City;
+import weather.entity.Weather;
 
+/**
+ * The {@code WeatherService} interface provides the information about the
+ * weather
+ * 
+ * @author Margarita Skokova
+ */
 public interface WeatherService {
 
-  Weather recieveWeather(String latutude, String longitude) throws WeatherNotFoundException;
+	Weather getWeather(City city);
 
 }

@@ -23,6 +23,7 @@
 
 		<springVersion>5.3.1</springVersion>
 		<springSecurityVersion>5.4.2</springSecurityVersion>
+		<springJpaVersion>2.4.2</springJpaVersion>
 
 		<liquibaseVersion>4.2.2</liquibaseVersion>
 		<tomcat-jdbcVersion>10.0.0</tomcat-jdbcVersion>
@@ -39,6 +40,14 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.4.27.Final</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jdbc</artifactId>
@@ -145,6 +154,12 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>${springSecurityVersion}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${springJpaVersion}</version>
 		</dependency>
 
 		<!-- dependencies for tests -->
